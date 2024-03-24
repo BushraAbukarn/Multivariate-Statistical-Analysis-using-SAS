@@ -1,0 +1,21 @@
+title 'Score Data'; 
+data scores; 
+set "C:\Users\bushr\OneDrive\Desktop\scores"; 
+run; 
+proc contents data=scores; 
+run; 
+proc means data=scores; 
+vars locus_of_control self_concept motivation read write science; 
+run; 
+proc freq data=scores; 
+table prog; 
+run; 
+proc corr data=scores nosimple; 
+var locus_of_control self_concept motivation; 
+run; 
+proc glm data=scores; 
+class prog; 
+model locus_of_control self_concept motivation = read write science prog
+/ solution ss3; 
+manova h=_ALL_;
+run; 
