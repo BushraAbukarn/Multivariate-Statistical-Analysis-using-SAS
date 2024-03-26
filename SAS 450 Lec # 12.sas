@@ -1,0 +1,25 @@
+*Factor Analysis;
+data SalesPeople; 
+infile "C:\Users\bushr\OneDrive\Desktop\SalesPeople.dat"; 
+input SalesGrowth SalesProfit NewAccountSales CreativityTest MechanicalTest AbstractTest MathTest; 
+SalesGrowthL10=log10(SalesGrowth); 
+SalesProfitL10=log10(SalesProfit); 
+NewAccountSalesL10=log10(NewAccountSales); 
+CreativityTestL10=log10(CreativityTest); 
+MechanicalTestL10=log10(MechanicalTest); 
+AbstractTestL10=log10(AbstractTest); 
+MathTestL10=log10(MathTest); 
+run; 
+*a; 
+proc factor method=principal nfactors=2
+rotate=varimax  corr residuals; 
+var SalesGrowthL10 SalesProfitL10 NewAccountSalesL10 CreativityTestL10 MechanicalTestL10 AbstractTestL10 MathTestL10; 
+run; 
+*b m=2; 
+proc factor method=ml nfactors=2 heywood; 
+var SalesGrowthL10 SalesProfitL10 NewAccountSalesL10 CreativityTestL10 MechanicalTestL10 AbstractTestL10 MathTestL10; 
+run;
+*m=3; 
+proc factor method=ml nfactors=3 heywood; 
+var SalesGrowthL10 SalesProfitL10 NewAccountSalesL10 CreativityTestL10 MechanicalTestL10 AbstractTestL10 MathTestL10; 
+run;
